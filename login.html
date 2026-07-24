@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Agende Já</title>
+    <link rel="stylesheet" href="css/global.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 4rem auto;
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-logo h1 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        .login-logo p {
+            color: var(--gray-500);
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container login-container">
+        <div class="login-logo">
+            <h1>📅 Agende Já</h1>
+            <p>Entre na sua conta</p>
+        </div>
+        
+        <div class="card">
+            <div id="message" class="hidden"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" required placeholder="******">
+                </div>
+                
+                <button type="submit" id="loginBtn" class="btn btn-primary" style="width: 100%;">
+                    <span id="loadingSpinner" class="loading hidden"></span>
+                    <span id="btnText">Entrar</span>
+                </button>
+            </form>
+            
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="#" style="color: var(--primary); font-size: 0.875rem;">Esqueceu a senha?</a>
+                <br>
+                <span style="color: var(--gray-500); font-size: 0.875rem;">Não tem conta?</span>
+                <a href="cadastro-loja.html" style="color: var(--primary); font-size: 0.875rem;">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { login } from '../js/services/auth.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const messageDiv = document.getElementById('message');
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const btnText = document.getElementById('btnText');
+            
+            // Verificar se já está logado
+            import('../js/config/supabase.js').then(async ({ getCurrentUser }) => {
+                const user = await getCurrentUser();
+                if (user) {
+                    window.location.href = '/dashboard.html';
+                }
+            });
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                loginBtn.disabled = true;
+                loadingSpinner.classList.remove('hidden');
+                btnText.textContent = 'Entrando...';
+                messageDiv.className = 'hidden';
+                
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+                
+                const resultado = await login(email, senha);
+                
+                if (resultado.success) {
+                    mostrarMensagem('✅ Login realizado com sucesso!', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1000);
+                } else {
+                    mostrarMensagem('❌ ' + resultado.error, 'danger');
+                    resetarBotao();
+                }
+            });
+            
+            function mostrarMensagem(texto, tipo) {
+                messageDiv.className = `alert alert-${tipo}`;
+                messageDiv.textContent = texto;
+            }
+            
+            function resetarBotao() {
+                loginBtn.disabled = false;
+                loadingSpinner.classList.add('hidden');
+                btnText.textContent = 'Entrar';
+            }
+        });
+    </script>
+</body>
+</html>
