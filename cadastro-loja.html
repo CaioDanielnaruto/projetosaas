@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Loja - Agende Já</title>
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; padding: 2rem 1rem;">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">📝 Cadastre sua Loja</h2>
+                <a href="login.html" style="color: var(--primary);">Já tem conta? Entrar</a>
+            </div>
+            
+            <div id="message" class="hidden"></div>
+            
+            <form id="cadastroForm">
+                <div class="form-group">
+                    <label for="nomeLoja">Nome da Loja *</label>
+                    <input type="text" id="nomeLoja" required placeholder="Ex: Barbearia do João">
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">Categoria *</label>
+                    <select id="categoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="salao">Salão de Beleza</option>
+                        <option value="barbearia">Barbearia</option>
+                        <option value="clinica">Clínica de Estética</option>
+                        <option value="consultorio">Consultório</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="endereco">Endereço *</label>
+                    <input type="text" id="endereco" required placeholder="Rua, número, bairro, cidade">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefone">Telefone *</label>
+                    <input type="tel" id="telefone" required placeholder="(00) 00000-0000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="senha">Senha * (mínimo 6 caracteres)</label>
+                        <input type="password" id="senha" required placeholder="******">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarSenha">Confirmar Senha *</label>
+                        <input type="password" id="confirmarSenha" required placeholder="******">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao">Descrição (opcional)</label>
+                    <textarea id="descricao" rows="3" placeholder="Fale um pouco sobre sua loja..."></textarea>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+                    <span id="loadingSpinner" class="loading hidden"></span>
+                    <span id="btnText">Cadastrar</span>
+                </button>
+            </form>
+            
+            <p style="margin-top: 1.5rem; text-align: center; color: var(--gray-500); font-size: 0.875rem;">
+                Ao cadastrar, você concorda com nossos Termos de Uso
+            </p>
+        </div>
+    </div>
+    
+    <script type="module" src="js/pages/cadastro-loja.js"></script>
+</body>
+</html>
