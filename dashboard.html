@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Agende Já</title>
+    <link rel="stylesheet" href="css/global.css">
+    <style>
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            padding: 2rem 1rem;
+            flex-shrink: 0;
+        }
+        
+        .sidebar h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .sidebar nav a {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .sidebar nav a:hover {
+            background: var(--gray-100);
+        }
+        
+        .sidebar nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: var(--gray-50);
+        }
+        
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .btn-logout {
+            margin-top: 2rem;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <h2>📅 Agende Já</h2>
+            <nav>
+                <a href="#" class="active" data-page="agendamentos">📋 Agendamentos</a>
+                <a href="#" data-page="servicos">✂️ Serviços</a>
+                <a href="#" data-page="profissionais">👤 Profissionais</a>
+                <a href="#" data-page="configuracoes">⚙️ Configurações</a>
+            </nav>
+            <button class="btn btn-danger btn-logout" id="btnLogout">Sair</button>
+        </aside>
+        
+        <main class="main-content">
+            <!-- Página: Agendamentos -->
+            <section id="page-agendamentos" class="page-section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📋 Agendamentos</h2>
+                        <div>
+                            <input type="date" id="filtroData" style="padding: 0.5rem; border-radius: var(--radius); border: 1px solid var(--gray-200);">
+                            <button class="btn btn-primary btn-sm" id="btnRecarregar">🔄 Recarregar</button>
+                        </div>
+                    </div>
+                    <div id="agendamentosList">
+                        <p style="text-align: center; color: var(--gray-500);">Carregando agendamentos...</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Página: Serviços -->
+            <section id="page-servicos" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">✂️ Serviços</h2>
+                        <button class="btn btn-primary btn-sm" id="btnNovoServico">+ Novo Serviço</button>
+                    </div>
+                    <div id="servicosList">
+                        <p style="text-align: center; color: var(--gray-500);">Carregando serviços...</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Página: Profissionais -->
+            <section id="page-profissionais" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">👤 Profissionais</h2>
+                        <button class="btn btn-primary btn-sm" id="btnNovoProfissional">+ Novo Profissional</button>
+                    </div>
+                    <div id="profissionaisList">
+                        <p style="text-align: center; color: var(--gray-500);">Carregando profissionais...</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Página: Configurações -->
+            <section id="page-configuracoes" class="page-section">
+                <div class="card">
+                    <h2 class="card-title">⚙️ Configurações</h2>
+                    <p style="color: var(--gray-500); margin-bottom: 1.5rem;">Configure os horários de funcionamento da sua loja</p>
+                    <div id="configuracoesHorario">
+                        <p style="text-align: center; color: var(--gray-500);">Carregando configurações...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script type="module" src="js/pages/dashboard.js"></script>
+</body>
+</html>
