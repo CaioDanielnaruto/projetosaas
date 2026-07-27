@@ -3,8 +3,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // 🔑 SUBSTITUA PELAS SUAS CREDENCIAIS
 // Vá em: https://app.supabase.com/project/_/settings/api
-const SUPABASE_URL = 'https://SEU_PROJETO.supabase.co';
-const SUPABASE_ANON_KEY = 'SUA_CHAVE_ANON_PUBLICA';
+const SUPABASE_URL = 'https://dmlagsezuumfvilpjkab.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_RULqGHvuadMFwtkDVc7CPQ_0IS4sQI1';
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
